@@ -5,6 +5,7 @@ import pandas as pd
 import requests
 import json
 import Keys as k
+import ast
 #import numpy as np
 
 ## Función crear request json
@@ -40,6 +41,51 @@ def createJson (row):
         "units": "METRIC"
         }
     return(link, headers, json)
+
+def createJsonV2(coord, row):
+    link = 'https://routes.googleapis.com/directions/v2:computeRoutes'
+    headers =   {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": routesKey,
+        "X-Goog-FieldMask": "routes.duration,routes.staticDuration,routes.distanceMeters,routes.polyline.encodedPolyline,routes.routeToken"  # Adjust field mask as needed
+                }
+    json = {
+    "origin": {
+        "location":{
+            "latLng":{
+                "latitude":coord[0][0],
+                "longitude":coord[0][1]
+                }
+            }
+        },
+    "destination":{
+        "location":{
+            "latLng":{
+                "latitude":coord[-1][0],
+                "longitude":coord[-1][1]
+                }
+            }
+        },
+    "intermediates":[
+        {
+            "location":{
+                "latLng":{
+                    "latitude": loc[0],
+                    "longitude":loc[1]
+                }
+            },
+            "via": True
+        }for loc in coord[1:-1]
+    ],
+    "travelMode": row['Modo'],
+    "routingPreference": row['Ruteo'],
+    "trafficModel" : row['Model'],
+    "languageCode": "en-US",
+    "units": "METRIC"
+    }
+    return(link, headers, json)
+   
+    
 
 def launchRoutesRequest(link, headers, json):
     success = False
@@ -261,7 +307,19 @@ def run_script(inputFileName, mykey,myRoutesKey):
                         ## RoutesAPI to be moved
             
                         ## Create query parameters (link, headers (results) and input Json)
-                        link, headers, json = createJson(row)
+                        
+                        ## No of coordinates
+                        
+                        coord = ast.literal_eval(row['Coord_Routes'])
+                        
+                        ## Split between 2
+                        noCoordenadas = len(coord)
+                        
+                        if noCoordenadas >2:
+                            link, headers, json = createJsonV2(coord, row)
+                        else: 
+                            link, headers, json = createJson(row)
+                        
                         ## 
                         resultJson = launchRoutesRequest(link, headers, json)
                         print("RoutesAPI Results")
@@ -274,10 +332,11 @@ def run_script(inputFileName, mykey,myRoutesKey):
                         filteredAPI.loc[index, 'Distancia'] = distanceMeters
                         filteredAPI.loc[index, 'Tiempo'] = staticDuration
                         filteredAPI.loc[index, 'Tiempo_Traffic'] = durationSecond
+                        filteredResults = filteredAPI.drop(['Coord_Routes'], axis=1).copy()
                         j = j+1
         
             containerResults = pd.concat([containerResults, filtered], ignore_index = True)
-            routesAPIResults = pd.concat([routesAPIResults, filteredAPI], ignore_index = True)
+            routesAPIResults = pd.concat([routesAPIResults, filteredResults], ignore_index = True)
             
             saveSeparatedByProject(containerResults, inputFileName, 'Distance', 'parcial')
             saveSeparatedByProject(routesAPIResults, inputFileName, 'Routes', 'parcial')

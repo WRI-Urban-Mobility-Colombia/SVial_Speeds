@@ -73,8 +73,7 @@ def createJsonV2(coord, row):
                     "latitude": loc[0],
                     "longitude":loc[1]
                 }
-            },
-            "via": True
+            }
         }for loc in coord[1:-1]
     ],
     "travelMode": row['Modo'],
@@ -317,6 +316,7 @@ def run_script(inputFileName, mykey,myRoutesKey):
                         
                         if noCoordenadas >2:
                             link, headers, json = createJsonV2(coord, row)
+                            print(json)
                         else: 
                             link, headers, json = createJson(row)
                         

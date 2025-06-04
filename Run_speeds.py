@@ -11,7 +11,7 @@ import time as timer
 #Import another files
 
 import schedule_example as se
-import Keys as k
+import Keys as K
 
 print( '##  GOOGLE API PROGRAMADO POR TRAMOS ##'+'\n'+'\n')
 
@@ -36,4 +36,4 @@ else:
     
     print('Inicia la función de consultas')
     
-    se.run_script(inputFileName, k.apiKey, k.routesKey)
+    se.run_script(inputFileName, K.apiKey, K.routesKey)

@@ -277,6 +277,7 @@ def run_script(inputFileName, mykey,myRoutesKey):
             #Condiciones de ejecución alcanzadas, ejecutar query
             
             filteredAPI = filtered.copy()
+            filteredResults = filtered.copy()
             
             # distanceMatrix API
             

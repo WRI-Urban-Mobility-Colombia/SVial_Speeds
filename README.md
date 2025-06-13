@@ -15,3 +15,4 @@ Al finalizar la toma, genera un archivo de resultados por proyecto identificado 
 - Preparar archivo de consultas en la carpeta Inputs
 - Configurar la máquina para que no hiberne durante el periodo de toma de información
 - Ejecutar el archivo Ru
+## Referencias y documentos de apoyo de interés

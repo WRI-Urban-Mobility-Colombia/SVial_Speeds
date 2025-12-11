@@ -14,5 +14,10 @@ Al finalizar la toma, genera un archivo de resultados por proyecto identificado 
 - Descargar archivos en la misma carpeta
 - Preparar archivo de consultas en la carpeta Inputs
 - Configurar la máquina para que no hiberne durante el periodo de toma de información
-- Ejecutar el archivo Ru
+- Ejecutar el archivo run_script.py
+El código acaba de correr cuando se tenga la última consulta. Mientras tanto queda en stand by.
+####Importante que si se corre en computadores, y el computador entra en stand by, se congela la consulta
+### Correr en un dispositivo Android
+- Requiere las aplicaciones Termux y Total Commander
+  
 ## Referencias y documentos de apoyo de interés

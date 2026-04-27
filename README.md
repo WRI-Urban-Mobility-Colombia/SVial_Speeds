@@ -24,19 +24,23 @@ El código acaba de correr cuando se tenga la última consulta. Mientras tanto q
 2. Descargar la app "Total Commander" para acceder a la memoria de la máquina virtual
 3. Abrir la aplicación y ejecutar:
    
-   "pkg update"
-   "pkg upgrade -y"
+   - "pkg update"
+   - "pkg upgrade -y"
    Para actualizar los diferentes repositorios, luego ejecutar
-   "pkg install python -y"
+   - "pkg install python -y"
    Verificar la versión de python con python --version
    Para instalar las librerías, aplicar los siguientes comandos
-   "pip install pandas"
-   "pip install openpyxl"
-   "pip install requests"
    
+   - "pip install openpyxl"
+   - "pip install requests"
+4. Instalar pandas y otras librerías con este comando:
+
+   - "pkg i tur-repo -y"
+   - "pkg i python-pandas -y" 
+
    Mover el código y el archivo de entrada a la máquina virtual de Termux usando totalcommander
    Ejecutar el código usando el comando:
    "python Run_speeds.py"  
-5. Recomendado: 
-   
+6. Recomendado: 
+   Una vez esté ejecutandose, habilitar la opción: "wakelock" para evitar que Android mate el proceso
 ## Referencias y documentos de apoyo e interés
